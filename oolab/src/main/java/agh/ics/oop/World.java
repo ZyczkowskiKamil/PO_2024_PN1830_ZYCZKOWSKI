@@ -1,6 +1,8 @@
 package agh.ics.oop;
 
+import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.MoveDirection;
+import agh.ics.oop.model.Vector2d;
 
 public class World {
 
@@ -8,6 +10,14 @@ public class World {
         System.out.println("System wystartował");
         run(args);
         System.out.println("System zakończył działanie");
+
+//        MapDirection dir = MapDirection.EAST;
+//        System.out.println(dir);
+//        System.out.println(dir.toString());
+//        System.out.println(dir.next());
+//        System.out.println(dir.previous());
+//        System.out.println(dir.toUnitVector());
+
     }
 
     private static String getMoveMessage(MoveDirection direction) {
@@ -25,6 +35,6 @@ public class World {
         for (MoveDirection direction : moveDirections) {
             System.out.println(getMoveMessage(direction));
         }
-
     }
+
 }
