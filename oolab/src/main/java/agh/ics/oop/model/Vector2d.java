@@ -56,7 +56,7 @@ public class Vector2d {
         if (!(other instanceof Vector2d)) return false;
         Vector2d that;
         that = (Vector2d) other;
-        return x == that.x && y ==  that.y;
+        return x == that.x && y == that.y;
     }
 
 
