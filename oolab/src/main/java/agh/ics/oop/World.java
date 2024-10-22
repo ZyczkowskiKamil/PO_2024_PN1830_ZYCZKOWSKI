@@ -5,9 +5,10 @@ import agh.ics.oop.model.MoveDirection;
 public class World {
 
     public static void main(String[] args) {
-        System.out.println("System wystartował");
-        run(args);
-        System.out.println("System zakończył działanie");
+        System.out.println("Start");
+        MoveDirection[] moveDirections = OptionsParser.parseStringToMoveDirection(args);
+        run(moveDirections);
+        System.out.println("Stop");
     }
 
     private static String getMoveMessage(MoveDirection direction) {
@@ -19,8 +20,7 @@ public class World {
         };
     }
 
-    public static void run(String[] args) {
-        MoveDirection[] moveDirections = OptionsParser.parseStringToMoveDirection(args);
+    public static void run(MoveDirection[] moveDirections) {
 
         for (MoveDirection direction : moveDirections) {
             System.out.println(getMoveMessage(direction));
