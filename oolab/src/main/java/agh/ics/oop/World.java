@@ -7,9 +7,6 @@ import agh.ics.oop.model.Vector2d;
 public class World {
 
     public static void main(String[] args) {
-        System.out.println("System wystartował");
-        run(args);
-        System.out.println("System zakończył działanie");
         System.out.println("Start");
         MoveDirection[] moveDirections = OptionsParser.parseStringToMoveDirection(args);
         run(moveDirections);
