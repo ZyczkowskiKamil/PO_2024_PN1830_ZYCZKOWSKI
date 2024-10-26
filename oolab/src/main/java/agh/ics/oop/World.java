@@ -10,14 +10,10 @@ public class World {
         System.out.println("System wystartował");
         run(args);
         System.out.println("System zakończył działanie");
-
-//        MapDirection dir = MapDirection.EAST;
-//        System.out.println(dir);
-//        System.out.println(dir.toString());
-//        System.out.println(dir.next());
-//        System.out.println(dir.previous());
-//        System.out.println(dir.toUnitVector());
-
+        System.out.println("Start");
+        MoveDirection[] moveDirections = OptionsParser.parseStringToMoveDirection(args);
+        run(moveDirections);
+        System.out.println("Stop");
     }
 
     private static String getMoveMessage(MoveDirection direction) {
@@ -29,8 +25,7 @@ public class World {
         };
     }
 
-    public static void run(String[] args) {
-        MoveDirection[] moveDirections = OptionsParser.parseStringToMoveDirection(args);
+    public static void run(MoveDirection[] moveDirections) {
 
         for (MoveDirection direction : moveDirections) {
             System.out.println(getMoveMessage(direction));
