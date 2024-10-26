@@ -41,6 +41,7 @@ public class Vector2dTest {
     @Test
     public void followsTest() {
         Vector2d my_vector = new Vector2d(2,3);
+        // vector follows itself
         assertTrue(my_vector.follows(my_vector));
 
         my_vector = new Vector2d(0,0);
@@ -73,6 +74,7 @@ public class Vector2dTest {
         assertEquals(my_vector, my_vector.subtract(my_vector));
         assertEquals(my_vector, my_vector.subtract(new Vector2d(0,0)));
         assertEquals(new Vector2d(1,2), my_vector.subtract(new Vector2d(-1,-2)));
+
         my_vector = new Vector2d(2,3);
         assertEquals(new Vector2d(1,2), my_vector.subtract(new Vector2d(1,1)));
         assertEquals(new Vector2d(-3,3), my_vector.subtract(new Vector2d(5,0)));
