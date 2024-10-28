@@ -1,6 +1,8 @@
 package agh.ics.oop;
 
+import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.MoveDirection;
+import agh.ics.oop.model.Vector2d;
 
 public class World {
 
@@ -25,6 +27,6 @@ public class World {
         for (MoveDirection direction : moveDirections) {
             System.out.println(getMoveMessage(direction));
         }
-
     }
+
 }
