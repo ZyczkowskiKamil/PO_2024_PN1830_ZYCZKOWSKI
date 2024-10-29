@@ -15,10 +15,10 @@ public class AnimalTest {
         assertEquals("(3,3) polnoc", animal.toString());
 
         animal = new Animal(5,4);
-        assertEquals("(2,4) polnoc", animal.toString());
+        assertEquals("(2,2) polnoc", animal.toString());
 
         animal = new Animal(0,5);
-        assertEquals("(0,2) polnoc", animal.toString());
+        assertEquals("(2,2) polnoc", animal.toString());
 
         animal = new Animal(-10,-10);
         assertEquals("(2,2) polnoc", animal.toString());
