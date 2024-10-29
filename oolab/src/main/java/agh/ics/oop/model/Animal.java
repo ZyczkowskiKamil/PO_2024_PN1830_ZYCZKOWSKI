@@ -24,7 +24,7 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "(" + position.getX() + "," + position.getY() + ") " + animalOrientation.toString();
+        return "(%d,%d) %s".formatted(position.getX(),position.getY(),animalOrientation.toString());
     }
 
     public boolean isAt(Vector2d position) {
