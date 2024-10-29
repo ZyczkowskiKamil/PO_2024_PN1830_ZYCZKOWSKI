@@ -1,16 +1,20 @@
 package agh.ics.oop;
 
+import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class World {
 
     public static void main(String[] args) {
-        System.out.println("Start");
-        MoveDirection[] moveDirections = OptionsParser.parseStringToMoveDirection(args);
-        run(moveDirections);
-        System.out.println("Stop");
+        List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection(args);
+        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
+        Simulation simulation = new Simulation(positions, directions);
+        simulation.run();
     }
 
     private static String getMoveMessage(MoveDirection direction) {

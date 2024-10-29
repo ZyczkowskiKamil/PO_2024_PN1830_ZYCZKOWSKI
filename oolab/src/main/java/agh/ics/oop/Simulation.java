@@ -8,32 +8,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Simulation {
-    private List<Animal> animals = new ArrayList<>();
+    private List<Animal> animalsList = new ArrayList<>();
     private final List<MoveDirection> moves;
 
     public Simulation(List<Vector2d> animalPositions , List<MoveDirection> moves) {
         this.moves = moves;
         for (Vector2d animalPosition : animalPositions) {
-            this.animals.add(new Animal(animalPosition.getX(), animalPosition.getY()));
+            this.animalsList.add(new Animal(animalPosition.getX(), animalPosition.getY()));
         }
     }
 
     public void run() {
 
         int nextAnimalID = 0;
-        int numberOfAnimals = animals.size();
+        int numberOfAnimals = animalsList.size();
 
         if (numberOfAnimals == 0) { // there are no animals to move
             return;
         }
 
         for (MoveDirection move : moves) {
-            animals.get(nextAnimalID).move(move);
+            animalsList.get(nextAnimalID).move(move);
 
-            System.out.println("Zwierze " + nextAnimalID + " : " + animals.get(nextAnimalID).toString());
+            System.out.println("Zwierze " + nextAnimalID + " : " + animalsList.get(nextAnimalID).toString());
 
             nextAnimalID++;
             if (nextAnimalID >= numberOfAnimals) nextAnimalID = 0;
         }
+    }
+
+    public List<Animal> getAnimalsList() {
+        return animalsList;
     }
 }
