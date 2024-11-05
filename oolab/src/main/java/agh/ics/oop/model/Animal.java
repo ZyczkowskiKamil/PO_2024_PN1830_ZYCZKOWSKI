@@ -15,6 +15,10 @@ public class Animal {
         this(defaultAnimalPosition.getX(),defaultAnimalPosition.getY());
     }
 
+    public Animal(Vector2d position) {
+        this(position.getX(),position.getY());
+    }
+
     public Animal(int x, int y) {
         this.position = new Vector2d(x,y);
         this.animalOrientation = MapDirection.NORTH;

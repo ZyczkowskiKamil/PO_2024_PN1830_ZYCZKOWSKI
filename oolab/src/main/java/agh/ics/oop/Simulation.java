@@ -1,40 +1,43 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Simulation {
     private final List<Animal> animalsList = new ArrayList<>();
     private final List<MoveDirection> moves;
+    private final WorldMap worldMap;
+    private int animalsOnMap = 0;
 
-    public Simulation(List<Vector2d> animalPositions , List<MoveDirection> moves) {
+
+    public Simulation(List<Vector2d> animalPositions , List<MoveDirection> moves, WorldMap worldMap) {
         this.moves = moves;
+        this.worldMap = worldMap;
         for (Vector2d animalPosition : animalPositions) {
-            this.animalsList.add(new Animal(animalPosition.getX(), animalPosition.getY()));
+            if (this.worldMap.place(new Animal(animalPosition))) {
+                animalsOnMap++;
+                animalsList.add(new Animal(animalPosition));
+            }
         }
     }
 
     public void run() {
 
         int nextAnimalID = 0;
-        int numberOfAnimals = animalsList.size();
 
-        if (numberOfAnimals == 0) { // there are no animals to move
+        if (animalsOnMap == 0) { // there are no animals to move
             return;
         }
 
-//        for (MoveDirection move : moves) {
-//            animalsList.get(nextAnimalID).move(move);
-//
-//            System.out.println("Zwierze " + nextAnimalID + " : " + animalsList.get(nextAnimalID).toString());
-//
-//            nextAnimalID++;
-//            if (nextAnimalID >= numberOfAnimals) nextAnimalID = 0;
-//        }
+        for (MoveDirection move : moves) {
+            animalsList.get(nextAnimalID).move(move,worldMap);
+
+            nextAnimalID++;
+            if (nextAnimalID >= animalsOnMap) nextAnimalID = 0;
+        }
     }
 
     public List<Animal> getAnimalsList() {

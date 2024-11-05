@@ -27,6 +27,14 @@ public class AnimalTest {
         animal = new Animal(-10,-10);
         assertEquals(new Vector2d(2,2), animal.getPosition());
         assertEquals("N", animal.toString());
+
+        animal = new Animal(new Vector2d(3,3));
+        assertEquals(new Vector2d(3,3), animal.getPosition());
+        assertEquals("N", animal.toString());
+
+        animal = new Animal(new Vector2d(5,4));
+        assertEquals(new Vector2d(2,2), animal.getPosition());
+        assertEquals("N", animal.toString());
     }
 
     @Test
