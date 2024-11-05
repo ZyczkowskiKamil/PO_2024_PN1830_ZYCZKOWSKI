@@ -34,7 +34,7 @@ public class RectangularMap implements WorldMap {
 
     @Override
     public void move(Animal animal, MoveDirection direction) {
-        if (animals.containsKey(animal.getPosition()) && animals.containsValue(animal)) {
+        if (animals.containsKey(animal.getPosition())) {
             animals.remove(animal.getPosition());
             animal.move(direction, this);
             animals.put(animal.getPosition(), animal);

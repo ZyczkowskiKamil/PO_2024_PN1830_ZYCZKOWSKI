@@ -2,7 +2,6 @@ package agh.ics.oop;
 
 import agh.ics.oop.model.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,11 +31,15 @@ public class Simulation {
             return;
         }
 
+        System.out.println(worldMap + "\n");
         for (MoveDirection move : moves) {
-            animalsList.get(nextAnimalID).move(move,worldMap);
+            Animal animal = animalsList.get(nextAnimalID);
+            worldMap.move(animal, move);
 
             nextAnimalID++;
             if (nextAnimalID >= animalsOnMap) nextAnimalID = 0;
+
+            System.out.println(worldMap + "\n");
         }
     }
 

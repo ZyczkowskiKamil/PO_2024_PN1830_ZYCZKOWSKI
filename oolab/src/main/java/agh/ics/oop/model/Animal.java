@@ -69,5 +69,9 @@ public class Animal {
     public Vector2d getPosition() {
         return this.position;
     }
+    
+    public MapDirection getOrientation() {
+        return this.animalOrientation;
+    }
 
 }
