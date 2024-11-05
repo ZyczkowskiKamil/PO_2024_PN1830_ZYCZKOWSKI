@@ -124,6 +124,7 @@ public class Vector2dTest {
         object = "asfsa";
         assertFalse(myVector.equals(object));
         assertTrue(myVector.equals(myVector));
+        assertFalse(myVector.equals(new Vector2d(5,5)));
     }
 
 }

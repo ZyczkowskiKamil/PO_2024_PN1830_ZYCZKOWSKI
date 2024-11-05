@@ -40,7 +40,7 @@ public class SimulationTest {
     public void integrationTest2() { // moves trying to collide and go out of border
         String[] input = "f b r l f f r r f f f f f f f f f r".split(" ");
         List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection(input);
-        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
+        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4), new Vector2d(2,2));
         WorldMap worldMap = new RectangularMap(6,6);
         Simulation simulation = new Simulation(positions, directions, worldMap);
         simulation.run();

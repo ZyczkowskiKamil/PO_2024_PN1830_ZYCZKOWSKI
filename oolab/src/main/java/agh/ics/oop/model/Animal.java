@@ -4,10 +4,10 @@ public class Animal {
     private MapDirection animalOrientation;
     private Vector2d position;
 
-    private static final int mapBorderNorth = 4;
-    private static final int mapBorderSouth = 0;
-    private static final int mapBorderEast = 4;
-    private static final int mapBorderWest = 0;
+//    private static final int mapBorderNorth = 4;
+//    private static final int mapBorderSouth = 0;
+//    private static final int mapBorderEast = 4;
+//    private static final int mapBorderWest = 0;
     private static final Vector2d defaultAnimalPosition = new Vector2d(2,2);
 
 
@@ -23,7 +23,7 @@ public class Animal {
         this.position = new Vector2d(x,y);
         this.animalOrientation = MapDirection.NORTH;
 
-        if (!isAnimalInMap()) position = new Vector2d(defaultAnimalPosition.getX(),defaultAnimalPosition.getY());
+//        if (!isAnimalInMap()) position = new Vector2d(defaultAnimalPosition.getX(),defaultAnimalPosition.getY());
     }
 
     @Override
@@ -40,10 +40,10 @@ public class Animal {
         return this.position.getX() == position.getX() && this.position.getY() == position.getY();
     }
 
-    private boolean isAnimalInMap() {
-        return position.getX() >= mapBorderWest && position.getX() <= mapBorderEast &&
-                position.getY() >= mapBorderSouth && position.getY() <= mapBorderNorth;
-    }
+//    private boolean isAnimalInMap() {
+//        return position.getX() >= mapBorderWest && position.getX() <= mapBorderEast &&
+//                position.getY() >= mapBorderSouth && position.getY() <= mapBorderNorth;
+//    }
 
     public void move(MoveDirection direction, MoveValidator validator) {
         switch (direction) {
