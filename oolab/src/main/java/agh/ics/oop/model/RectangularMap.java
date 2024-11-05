@@ -1,12 +1,25 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.util.MapVisualizer;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class RectangularMap implements WorldMap {
-    private Map<Vector2d, Animal> animals = new HashMap<>();
-    private static final int height = 4;
-    private static final int width = 4;
+    private final Map<Vector2d, Animal> animals = new HashMap<>();
+    private final int width;
+    private final int height;
+    private final Vector2d upperRight;
+    private final Vector2d lowerLeft;
+    private final MapVisualizer mapVisualizer = new MapVisualizer(this);
+
+    public RectangularMap(int width, int height) {
+        this.width = width;
+        this.height = height;
+
+        lowerLeft = new Vector2d(0,0);
+        upperRight = new Vector2d(width-1, height-1);
+    }
 
     @Override
     public boolean place(Animal animal) {
@@ -56,13 +69,11 @@ public class RectangularMap implements WorldMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        if (isOccupied(position)) {
-            return false;
-        }
-        if (position.getX() < 0 || position.getX() > width ||
-            position.getY() < 0 || position.getY() > height) {
-            return false;
-        }
-        return true;
+        return !isOccupied(position) && position.follows(lowerLeft) && position.precedes(upperRight);
+    }
+
+    @Override
+    public String toString() {
+        return mapVisualizer.draw(lowerLeft, upperRight);
     }
 }
