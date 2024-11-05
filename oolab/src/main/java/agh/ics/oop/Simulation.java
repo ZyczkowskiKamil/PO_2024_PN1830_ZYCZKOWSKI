@@ -27,14 +27,14 @@ public class Simulation {
             return;
         }
 
-        for (MoveDirection move : moves) {
-            animalsList.get(nextAnimalID).move(move);
-
-            System.out.println("Zwierze " + nextAnimalID + " : " + animalsList.get(nextAnimalID).toString());
-
-            nextAnimalID++;
-            if (nextAnimalID >= numberOfAnimals) nextAnimalID = 0;
-        }
+//        for (MoveDirection move : moves) {
+//            animalsList.get(nextAnimalID).move(move);
+//
+//            System.out.println("Zwierze " + nextAnimalID + " : " + animalsList.get(nextAnimalID).toString());
+//
+//            nextAnimalID++;
+//            if (nextAnimalID >= numberOfAnimals) nextAnimalID = 0;
+//        }
     }
 
     public List<Animal> getAnimalsList() {

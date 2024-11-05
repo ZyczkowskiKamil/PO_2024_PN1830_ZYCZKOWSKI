@@ -24,7 +24,12 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "(%d,%d) %s".formatted(position.getX(),position.getY(),animalOrientation.toString());
+        return switch (animalOrientation) {
+            case NORTH -> "N";
+            case EAST -> "E";
+            case SOUTH -> "S";
+            case WEST -> "W";
+        };
     }
 
     public boolean isAt(Vector2d position) {
@@ -36,16 +41,16 @@ public class Animal {
                 position.getY() >= mapBorderSouth && position.getY() <= mapBorderNorth;
     }
 
-    public void move(MoveDirection direction) {
+    public void move(MoveDirection direction, MoveValidator validator) {
         switch (direction) {
             case MoveDirection.FORWARD -> {
                 position = position.add(animalOrientation.toUnitVector());
-                if (!isAnimalInMap())
+                if (!validator.canMoveTo(position))
                     position = position.subtract(animalOrientation.toUnitVector());
             }
             case MoveDirection.BACKWARD -> {
                 position = position.subtract(animalOrientation.toUnitVector());
-                if (!isAnimalInMap())
+                if (!validator.canMoveTo(position))
                     position = position.add(animalOrientation.toUnitVector());
             }
             case MoveDirection.RIGHT -> {
