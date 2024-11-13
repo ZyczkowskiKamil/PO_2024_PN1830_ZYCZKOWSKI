@@ -111,4 +111,20 @@ class RectangularMapTest {
         assertFalse(rectangularMap.canMoveTo(new Vector2d(0,-1)));
     }
 
+    @Test
+    void toStringTest() {
+        RectangularMap rectangularMap = new RectangularMap(5,5);
+
+        String testString = new String(rectangularMap.toString());
+        String ans = new String(
+                  " y\\x  0 1 2 3 4\n"
+                + "  5: -----------\n"
+                + "  4: | | | | | |\n"
+                + "  3: | | | | | |\n"
+                + "  2: | | | | | |\n"
+                + "  1: | | | | | |\n"
+                + "  0: | | | | | |\n"
+                + " -1: -----------\n");
+        assertEquals(ans, testString);
+    }
 }
