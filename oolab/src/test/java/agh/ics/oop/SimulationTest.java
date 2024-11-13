@@ -1,10 +1,9 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,35 +16,49 @@ public class SimulationTest {
         String[] input = "l r l f".split(" ");
         List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection(input);
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        Simulation simulation = new Simulation(positions, directions);
+        WorldMap worldMap = new RectangularMap(6,6);
+        Simulation simulation = new Simulation(positions, directions, worldMap);
         simulation.run();
 
-        Animal animal0 = new Animal(2,2);
-        animal0.move(MoveDirection.LEFT);
-        animal0.move(MoveDirection.LEFT);
-        Animal animal1 = new Animal(3,4);
-        animal1.move(MoveDirection.RIGHT);
-        animal1.move(MoveDirection.FORWARD);
+        List<Vector2d> correctPositions = List.of(new Vector2d(2,2), new Vector2d(4,4));
+        List<MapDirection> correctOrientations = List.of(MapDirection.SOUTH, MapDirection.EAST);
 
-        assertEquals(animal0.toString(), simulation.getAnimalsList().get(0).toString());
-        assertEquals(animal1.toString(), simulation.getAnimalsList().get(1).toString());
+        List<Vector2d> actualPositions = new ArrayList<>();
+        List<MapDirection> actualOrientations = new ArrayList<>();
+
+        List<Animal> animals = simulation.getAnimalsList();
+        for (Animal animal : animals) {
+            actualPositions.add(animal.getPosition());
+            actualOrientations.add(animal.getOrientation());
+        }
+
+        assertEquals(correctPositions, actualPositions);
+        assertEquals(correctOrientations, actualOrientations);
     }
 
     @Test
-    public void integrationTest2() {
-        String[] input = "f b r l f f r r f f f f f f f f".split(" ");
+    public void integrationTest2() { // moves trying to collide and go out of border
+        String[] input = "f b r l f f r r f f f f f f f f f r".split(" ");
         List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection(input);
-        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        Simulation simulation = new Simulation(positions, directions);
+        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4), new Vector2d(2,2));
+        WorldMap worldMap = new RectangularMap(6,6);
+        Simulation simulation = new Simulation(positions, directions, worldMap);
         simulation.run();
 
-        Animal animal0 = new Animal(3,0); // (3,0) poludnie
-        animal0.move(MoveDirection.LEFT);
-        animal0.move(MoveDirection.LEFT);
-        Animal animal1 = new Animal(2,4); // (2,4) polnoc
+        List<Vector2d> correctPositions = List.of(new Vector2d(2,0), new Vector2d(3,5));
+        List<MapDirection> correctOrientations = List.of(MapDirection.SOUTH, MapDirection.EAST);
 
-        assertEquals(animal0.toString(), simulation.getAnimalsList().get(0).toString());
-        assertEquals(animal1.toString(), simulation.getAnimalsList().get(1).toString());
+        List<Vector2d> actualPositions = new ArrayList<>();
+        List<MapDirection> actualOrientations = new ArrayList<>();
+
+        List<Animal> animals = simulation.getAnimalsList();
+        for (Animal animal : animals) {
+            actualPositions.add(animal.getPosition());
+            actualOrientations.add(animal.getOrientation());
+        }
+
+        assertEquals(correctPositions, actualPositions);
+        assertEquals(correctOrientations, actualOrientations);
     }
 
     @Test
@@ -53,18 +66,24 @@ public class SimulationTest {
         String[] input = "l r l f fafs ga8 $w , 0209u asf ff bb j t c rr ll ff as s v x".split(" ");
         List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection(input);
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        Simulation simulation = new Simulation(positions, directions);
+        WorldMap worldMap = new RectangularMap(6,6);
+        Simulation simulation = new Simulation(positions, directions, worldMap);
         simulation.run();
 
-        Animal animal0 = new Animal(2,2);
-        animal0.move(MoveDirection.LEFT);
-        animal0.move(MoveDirection.LEFT);
-        Animal animal1 = new Animal(3,4);
-        animal1.move(MoveDirection.RIGHT);
-        animal1.move(MoveDirection.FORWARD);
+        List<Vector2d> correctPositions = List.of(new Vector2d(2,2), new Vector2d(4,4));
+        List<MapDirection> correctOrientations = List.of(MapDirection.SOUTH, MapDirection.EAST);
 
-        assertEquals(animal0.toString(), simulation.getAnimalsList().get(0).toString());
-        assertEquals(animal1.toString(), simulation.getAnimalsList().get(1).toString());
+        List<Vector2d> actualPositions = new ArrayList<>();
+        List<MapDirection> actualOrientations = new ArrayList<>();
+
+        List<Animal> animals = simulation.getAnimalsList();
+        for (Animal animal : animals) {
+            actualPositions.add(animal.getPosition());
+            actualOrientations.add(animal.getOrientation());
+        }
+
+        assertEquals(correctPositions, actualPositions);
+        assertEquals(correctOrientations, actualOrientations);
     }
 
     @Test
@@ -72,7 +91,8 @@ public class SimulationTest {
         String[] input = "l r l f fafs ga8 $w , 0209u asf ff bb j t c rr ll ff as s v x".split(" ");
         List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection(input);
         List<Vector2d> positions = List.of();
-        Simulation simulation = new Simulation(positions, directions);
+        WorldMap worldMap = new RectangularMap(6,6);
+        Simulation simulation = new Simulation(positions, directions, worldMap);
         simulation.run();
 
         assertTrue(simulation.getAnimalsList().isEmpty());
