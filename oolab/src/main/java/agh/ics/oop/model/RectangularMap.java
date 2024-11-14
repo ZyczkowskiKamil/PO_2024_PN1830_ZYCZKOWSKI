@@ -7,15 +7,11 @@ import java.util.Map;
 
 public class RectangularMap implements WorldMap {
     private final Map<Vector2d, Animal> animals = new HashMap<>();
-    private final int width;
-    private final int height;
     private final Vector2d upperRight;
     private final Vector2d lowerLeft;
     private final MapVisualizer mapVisualizer = new MapVisualizer(this);
 
     public RectangularMap(int width, int height) {
-        this.width = width;
-        this.height = height;
 
         lowerLeft = new Vector2d(0,0);
         upperRight = new Vector2d(width-1, height-1);
