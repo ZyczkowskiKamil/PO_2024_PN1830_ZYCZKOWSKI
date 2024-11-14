@@ -1,15 +1,11 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.model.util.MapVisualizer;
-
 import java.util.*;
 
 import static java.lang.Math.sqrt;
 
-public class GrassField implements WorldMap {
-    private final Map<Vector2d, Animal> animals = new HashMap<>();
+public class GrassField extends AbstractWorldMap implements WorldMap  {
     private final Map<Vector2d, Grass> grasses = new HashMap<>();
-    private final MapVisualizer mapVisualizer = new MapVisualizer(this);
 
     private Vector2d grassUpperRight;
     private Vector2d grassLowerLeft;
@@ -26,8 +22,8 @@ public class GrassField implements WorldMap {
         this.grassLowerLeft = new Vector2d(0,0);
 
         for (int i = 0; i < grassObjectsNumber; i++) {
-            int posX = (int) rand.nextInt(grassBoundX);
-            int posY = (int) rand.nextInt(grassBoundY);
+            int posX = rand.nextInt(grassBoundX);
+            int posY = rand.nextInt(grassBoundY);
             Grass grass = new Grass(new Vector2d(posX, posY));
             if (grasses.containsKey(grass.getPosition()))
                 i--;
@@ -42,28 +38,8 @@ public class GrassField implements WorldMap {
     }
 
     @Override
-    public boolean place(Animal animal) {
-        if (canMoveTo(animal.getPosition())) {
-            animals.put(animal.getPosition(), animal);
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    @Override
-    public void move(Animal animal, MoveDirection direction) {
-        if (animals.containsKey(animal.getPosition())) {
-            animals.remove(animal.getPosition());
-            animal.move(direction, this);
-            animals.put(animal.getPosition(), animal);
-        }
-    }
-
-    @Override
     public boolean isOccupied(Vector2d position) {
-        return animals.containsKey(position) || grasses.containsKey(position);
+        return grasses.containsKey(position) || super.isOccupied(position);
     }
 
     @Override
@@ -71,11 +47,6 @@ public class GrassField implements WorldMap {
         if (animals.containsKey(position)) return animals.get(position);
         if (grasses.containsKey(position)) return grasses.get(position);
         return null;
-    }
-
-    @Override
-    public boolean canMoveTo(Vector2d position) {
-        return !animals.containsKey(position);
     }
 
     private void updateMapSizeVectors() {
@@ -93,5 +64,12 @@ public class GrassField implements WorldMap {
     public String toString() {
         updateMapSizeVectors();
         return mapVisualizer.draw(mapLowerLeft,mapUpperRight);
+    }
+
+    @Override
+    public Collection<WorldElement> getElements() {
+        Collection<WorldElement> elements = super.getElements();
+        elements.addAll(grasses.values());
+        return elements;
     }
 }
