@@ -21,18 +21,23 @@ public class GrassField extends AbstractWorldMap implements WorldMap  {
         this.grassUpperRight = new Vector2d(grassBoundX,grassBoundY);
         this.grassLowerLeft = new Vector2d(0,0);
 
-        for (int i = 0; i < grassObjectsNumber; i++) {
-            int posX = rand.nextInt(grassBoundX);
-            int posY = rand.nextInt(grassBoundY);
-            Grass grass = new Grass(new Vector2d(posX, posY));
-            if (grasses.containsKey(grass.getPosition()))
-                i--;
-            else {
-                grasses.put(grass.getPosition(), grass);
-                grassUpperRight = grassUpperRight.upperRight(grass.getPosition());
-                grassLowerLeft = grassLowerLeft.lowerLeft(grass.getPosition());
-            }
+        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator(grassBoundX,grassBoundY,grassObjectsNumber);
+        for (Vector2d position : randomPositionGenerator) {
+            grasses.put(position, new Grass(position));
         }
+
+//        for (int i = 0; i < grassObjectsNumber; i++) {
+//            int posX = rand.nextInt(grassBoundX);
+//            int posY = rand.nextInt(grassBoundY);
+//            Grass grass = new Grass(new Vector2d(posX, posY));
+//            if (grasses.containsKey(grass.getPosition()))
+//                i--;
+//            else {
+//                grasses.put(grass.getPosition(), grass);
+//                grassUpperRight = grassUpperRight.upperRight(grass.getPosition());
+//                grassLowerLeft = grassLowerLeft.lowerLeft(grass.getPosition());
+//            }
+//        }
 
         updateMapSizeVectors();
     }
