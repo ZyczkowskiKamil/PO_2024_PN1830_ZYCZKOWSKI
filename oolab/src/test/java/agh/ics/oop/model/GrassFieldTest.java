@@ -10,19 +10,35 @@ public class GrassFieldTest {
     void place() {
         GrassField grassField = new GrassField(10);
 
-        assertTrue(grassField.place(new Animal(2,2)));
-        assertTrue(grassField.place(new Animal(2,3)));
+        try {
+            grassField.place(new Animal(2,2));
+            grassField.place(new Animal(2,3));
+        }
+        catch (IncorrectPositionException e) {
+            fail(e);
+        }
+
         // place is occupied
-        assertFalse(grassField.place(new Animal(2,3)));
+        try {
+            grassField.place(new Animal(2, 3));
+            fail("My method didn't throw when I expected it to");
+        }
+        catch (IncorrectPositionException ignored) {
+        }
     }
 
     @Test
     void move() {
         GrassField grassField = new GrassField(10);
         Animal animal1 = new Animal(2,2);
-        grassField.place(animal1);
         Animal animal2 = new Animal(2,3);
-        grassField.place(animal2);
+        try {
+            grassField.place(animal1);
+            grassField.place(animal2);
+        }
+        catch (IncorrectPositionException e) {
+            fail(e);
+        }
 
         grassField.move(animal1, MoveDirection.FORWARD);
         assertEquals(new Vector2d(2,2), animal1.getPosition());
@@ -68,8 +84,14 @@ public class GrassFieldTest {
     void isOccupied() {
         GrassField grassField = new GrassField(10);
 
-        grassField.place(new Animal(2,2));
-        grassField.place(new Animal(2,3));
+        try {
+            grassField.place(new Animal(2, 2));
+            grassField.place(new Animal(2, 3));
+        }
+        catch (IncorrectPositionException e) {
+            fail();
+        }
+
         assertTrue(grassField.isOccupied(new Vector2d(2,3)));
         assertTrue(grassField.isOccupied(new Vector2d(2,2)));
         assertFalse(grassField.isOccupied(new Vector2d(2,4)));
@@ -78,10 +100,17 @@ public class GrassFieldTest {
     @Test
     void objectAt() {
         GrassField rectangularMap = new GrassField(10);
+
         Animal animal1 = new Animal(2,2);
-        rectangularMap.place(animal1);
         Animal animal2 = new Animal(2,3);
-        rectangularMap.place(animal2);
+
+        try {
+            rectangularMap.place(animal1);
+            rectangularMap.place(animal2);
+        }
+        catch (IncorrectPositionException e) {
+            fail(e);
+        }
 
         assertEquals(animal1, rectangularMap.objectAt(new Vector2d(2,2)));
         assertEquals(animal2, rectangularMap.objectAt(new Vector2d(2,3)));
@@ -93,8 +122,13 @@ public class GrassFieldTest {
     void canMoveTo() {
         GrassField grassField = new GrassField(10);
 
-        grassField.place(new Animal(2,2));
-        grassField.place(new Animal(2,3));
+        try {
+            grassField.place(new Animal(2, 2));
+            grassField.place(new Animal(2, 3));
+        }
+        catch (IncorrectPositionException e) {
+            fail(e);
+        }
 
         assertFalse(grassField.canMoveTo(new Vector2d(2,2)));
         assertFalse(grassField.canMoveTo(new Vector2d(2,3)));

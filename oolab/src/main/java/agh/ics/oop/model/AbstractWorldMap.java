@@ -4,18 +4,17 @@ import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.*;
 
-public class AbstractWorldMap implements WorldMap {
+public abstract class AbstractWorldMap implements WorldMap {
     protected final Map<Vector2d, Animal> animals = new HashMap<>();
     protected final MapVisualizer mapVisualizer = new MapVisualizer(this);
 
     @Override
-    public boolean place(Animal animal) {
+    public void place(Animal animal) throws IncorrectPositionException {
         if (canMoveTo(animal.getPosition())) {
             animals.put(animal.getPosition(), animal);
-            return true;
         }
         else {
-            return false;
+            throw new IncorrectPositionException(animal.getPosition());
         }
     }
 
