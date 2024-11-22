@@ -28,8 +28,6 @@ public class Simulation {
     }
 
     public void run() {
-        System.out.println(worldMap + "\n");
-
         if (animalsOnMap == 0) { // there are no animals to move
             return;
         }
@@ -41,8 +39,6 @@ public class Simulation {
 
             nextAnimalID++;
             if (nextAnimalID >= animalsOnMap) nextAnimalID = 0;
-
-            System.out.println(worldMap + "\n");
         }
     }
 
