@@ -47,4 +47,11 @@ public abstract class AbstractWorldMap implements WorldMap {
     public Collection<WorldElement> getElements() {
         return new ArrayList<>(animals.values());
     }
+
+    @Override
+    public String toString() {
+        Boundary boundary = getCurrentBounds();
+        return mapVisualizer.draw(boundary.bottomLeft(), boundary.upperRight());
+    }
+
 }

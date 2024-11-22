@@ -211,4 +211,13 @@ class RectangularMapTest {
 
         assertNotEquals(incorrectElements, elements);
     }
+
+    @Test
+    void getCurrentBounds() {
+        RectangularMap rectangularMap = new RectangularMap(5,6);
+        Boundary boundary = rectangularMap.getCurrentBounds();
+        Boundary correctBoundary = new Boundary(new Vector2d(0,0),new Vector2d(4,5));
+
+        assertEquals(correctBoundary, boundary);
+    }
 }

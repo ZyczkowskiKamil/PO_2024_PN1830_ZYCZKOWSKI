@@ -66,15 +66,15 @@ public class GrassField extends AbstractWorldMap implements WorldMap  {
     }
 
     @Override
-    public String toString() {
-        updateMapSizeVectors();
-        return mapVisualizer.draw(mapLowerLeft,mapUpperRight);
-    }
-
-    @Override
     public Collection<WorldElement> getElements() {
         Collection<WorldElement> elements = super.getElements();
         elements.addAll(grasses.values());
         return elements;
+    }
+
+    @Override
+    public Boundary getCurrentBounds() {
+        updateMapSizeVectors();
+        return new Boundary(mapLowerLeft,mapUpperRight);
     }
 }

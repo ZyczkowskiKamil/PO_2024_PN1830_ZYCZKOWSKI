@@ -99,23 +99,23 @@ public class GrassFieldTest {
 
     @Test
     void objectAt() {
-        GrassField rectangularMap = new GrassField(10);
+        GrassField grassField = new GrassField(10);
 
         Animal animal1 = new Animal(2,2);
         Animal animal2 = new Animal(2,3);
 
         try {
-            rectangularMap.place(animal1);
-            rectangularMap.place(animal2);
+            grassField.place(animal1);
+            grassField.place(animal2);
         }
         catch (IncorrectPositionException e) {
             fail(e);
         }
 
-        assertEquals(animal1, rectangularMap.objectAt(new Vector2d(2,2)));
-        assertEquals(animal2, rectangularMap.objectAt(new Vector2d(2,3)));
-        assertNull(rectangularMap.objectAt(new Vector2d(-1,-1)));
-        assertNull(rectangularMap.objectAt(new Vector2d(0,10)));
+        assertEquals(animal1, grassField.objectAt(new Vector2d(2,2)));
+        assertEquals(animal2, grassField.objectAt(new Vector2d(2,3)));
+        assertNull(grassField.objectAt(new Vector2d(-1,-1)));
+        assertNull(grassField.objectAt(new Vector2d(0,10)));
     }
 
     @Test
@@ -137,6 +137,25 @@ public class GrassFieldTest {
         assertTrue(grassField.canMoveTo(new Vector2d(-5,-3)));
         assertTrue(grassField.canMoveTo(new Vector2d(0,0)));
         assertTrue(grassField.canMoveTo(new Vector2d(0,-1)));
+    }
+
+    @Test
+    void getCurrentBounds() {
+        GrassField grassField = new GrassField(10);
+
+        try {
+            grassField.place(new Animal(-3, 12));
+            grassField.place(new Animal(0, 0));
+            grassField.place(new Animal(12, -5));
+        }
+        catch (IncorrectPositionException e) {
+            fail(e);
+        }
+
+        Boundary boundary = grassField.getCurrentBounds();
+        Boundary correctBoundary = new Boundary(new Vector2d(-3,-5), new Vector2d(12,12));
+
+        assertEquals(correctBoundary, boundary);
     }
 
 }
