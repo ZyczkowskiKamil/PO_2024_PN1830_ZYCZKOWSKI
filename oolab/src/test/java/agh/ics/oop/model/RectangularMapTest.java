@@ -3,6 +3,8 @@ package agh.ics.oop.model;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 class RectangularMapTest {
@@ -126,5 +128,27 @@ class RectangularMapTest {
                 + "  0: | | | | | |\n"
                 + " -1: -----------\n");
         assertEquals(ans, testString);
+    }
+
+    @Test
+    void getElementsTest() {
+        RectangularMap rectangularMap = new RectangularMap(5,5);
+        Animal animal1 = new Animal(2,2);
+        rectangularMap.place(animal1);
+        Animal animal2 = new Animal(2,3);
+        rectangularMap.place(animal2);
+
+        ArrayList<WorldElement> elements = new ArrayList<>(rectangularMap.getElements());
+        ArrayList<WorldElement> correctElements = new ArrayList<>(
+                Arrays.asList(animal1,animal2)
+        );
+
+        assertEquals(correctElements, elements);
+
+        ArrayList<WorldElement> incorrectElements = new ArrayList<>(
+                Arrays.asList(new Animal(2,2),animal2)
+        );
+
+        assertNotEquals(incorrectElements, elements);
     }
 }
