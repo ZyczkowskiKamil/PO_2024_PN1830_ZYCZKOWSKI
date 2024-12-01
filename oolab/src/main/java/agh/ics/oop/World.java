@@ -25,11 +25,10 @@ public class World {
 
         SimulationEngine simulationEngine = new SimulationEngine(simulations);
 
-        simulationEngine.runAsync();
         try {
-            simulationEngine.awaitSimulationsEnd();
+            simulationEngine.runAsyncInThreadPool();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
 
