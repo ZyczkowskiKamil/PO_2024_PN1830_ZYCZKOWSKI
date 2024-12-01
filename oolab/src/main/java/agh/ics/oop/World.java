@@ -7,6 +7,8 @@ import java.util.*;
 public class World {
 
     public static void main(String[] args) {
+        System.out.println("System rozpoczął działanie");
+
         List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection(args);
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
         AbstractWorldMap worldMap = new GrassField(10);
@@ -30,7 +32,12 @@ public class World {
         worldMap3.addObserver(thirdObserver);
 
         SimulationEngine simulationEngine = new SimulationEngine(List.of(simulation, simulation2, simulation3));
-        simulationEngine.runSync();
+        simulationEngine.runAsync();
+        try {
+            simulationEngine.awaitSimulationsEnd();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
 //        List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection(args);
@@ -38,6 +45,8 @@ public class World {
 //        WorldMap worldMap = new GrassField(10);
 //        Simulation simulation = new Simulation(positions, directions, worldMap);
 //        simulation.run();
+
+        System.out.println("System zakończył działanie");
     }
 
     private static String getMoveMessage(MoveDirection direction) {
