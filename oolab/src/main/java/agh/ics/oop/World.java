@@ -9,29 +9,22 @@ public class World {
     public static void main(String[] args) {
         System.out.println("System rozpoczął działanie");
 
-        List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection(args);
-        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        AbstractWorldMap worldMap = new GrassField(10);
-        Simulation simulation = new Simulation(positions, directions, worldMap);
+        List<Simulation> simulations = new LinkedList<>();
 
-        List<MoveDirection> directions2 = OptionsParser.parseStringToMoveDirection("l r f b".split(" "));
-        List<Vector2d> positions2 = List.of(new Vector2d(3,3), new Vector2d(4,5));
-        AbstractWorldMap worldMap2 = new GrassField(10);
-        Simulation simulation2 = new Simulation(positions2, directions2, worldMap2);
+        for (int i = 0; i < 1000; i++) {
+            List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection("l r f b".split(" "));
+            List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
+            AbstractWorldMap worldMap = new GrassField(10);
+            Simulation simulation = new Simulation(positions, directions, worldMap);
 
-        List<MoveDirection> directions3 = OptionsParser.parseStringToMoveDirection("r r r r".split(" "));
-        List<Vector2d> positions3 = List.of(new Vector2d(1,1), new Vector2d(1,2));
-        AbstractWorldMap worldMap3 = new RectangularMap(5,5);
-        Simulation simulation3 = new Simulation(positions3, directions3, worldMap3);
+            ConsoleMapDisplay observer = new ConsoleMapDisplay();
+            worldMap.addObserver(observer);
 
-        ConsoleMapDisplay firstObserver = new ConsoleMapDisplay();
-        worldMap.addObserver(firstObserver);
-        ConsoleMapDisplay secondObserver = new ConsoleMapDisplay();
-        worldMap2.addObserver(secondObserver);
-        ConsoleMapDisplay thirdObserver = new ConsoleMapDisplay();
-        worldMap3.addObserver(thirdObserver);
+            simulations.add(simulation);
+        }
 
-        SimulationEngine simulationEngine = new SimulationEngine(List.of(simulation, simulation2, simulation3));
+        SimulationEngine simulationEngine = new SimulationEngine(simulations);
+
         simulationEngine.runAsync();
         try {
             simulationEngine.awaitSimulationsEnd();
