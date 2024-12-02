@@ -12,7 +12,14 @@ public class World {
         List<Simulation> simulations = new LinkedList<>();
 
         for (int i = 0; i < 1000; i++) {
-            List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection("l r f b".split(" "));
+            List<MoveDirection> directions = new LinkedList<>();
+            try {
+                directions = OptionsParser.parseStringToMoveDirection("l r f b".split(" "));
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println("Zły argument w options parser");
+                e.printStackTrace();
+            }
             List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
             AbstractWorldMap worldMap = new GrassField(10);
             Simulation simulation = new Simulation(positions, directions, worldMap);
