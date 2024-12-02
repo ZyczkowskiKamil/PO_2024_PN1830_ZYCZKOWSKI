@@ -16,16 +16,18 @@ public class Simulation {
         this.moves = moves;
         this.worldMap = worldMap;
         for (Vector2d animalPosition : animalPositions) {
-            if (this.worldMap.place(new Animal(animalPosition))) {
+            try {
+                this.worldMap.place(new Animal(animalPosition));
                 animalsOnMap++;
                 animalsList.add(new Animal(animalPosition));
+            }
+            catch (IncorrectPositionException e) {
+                System.out.println(e);
             }
         }
     }
 
     public void run() {
-        System.out.println(worldMap + "\n");
-
         if (animalsOnMap == 0) { // there are no animals to move
             return;
         }
@@ -37,8 +39,6 @@ public class Simulation {
 
             nextAnimalID++;
             if (nextAnimalID >= animalsOnMap) nextAnimalID = 0;
-
-            System.out.println(worldMap + "\n");
         }
     }
 

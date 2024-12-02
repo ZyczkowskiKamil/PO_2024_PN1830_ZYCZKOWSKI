@@ -2,17 +2,26 @@ package agh.ics.oop;
 
 import agh.ics.oop.model.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class World {
 
     public static void main(String[] args) {
         List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection(args);
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        WorldMap worldMap = new GrassField(10);
+        AbstractWorldMap worldMap = new GrassField(10);
         Simulation simulation = new Simulation(positions, directions, worldMap);
+
+        ConsoleMapDisplay firstObserver = new ConsoleMapDisplay();
+        worldMap.addObserver(firstObserver);
+
         simulation.run();
+
+//        List<MoveDirection> directions = OptionsParser.parseStringToMoveDirection(args);
+//        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
+//        WorldMap worldMap = new GrassField(10);
+//        Simulation simulation = new Simulation(positions, directions, worldMap);
+//        simulation.run();
     }
 
     private static String getMoveMessage(MoveDirection direction) {
