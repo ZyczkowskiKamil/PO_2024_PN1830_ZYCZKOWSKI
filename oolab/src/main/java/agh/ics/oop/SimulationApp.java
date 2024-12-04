@@ -15,25 +15,18 @@ public class SimulationApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        GrassField grassField = new GrassField(10);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
         BorderPane viewRoot = loader.load();
         SimulationPresenter presenter = loader.getController();
-        presenter.setWorldMap(grassField);
-        configureStage(primaryStage, viewRoot);
 
+        GrassField grassField = new GrassField(10);
+        presenter.setWorldMap(grassField);
         grassField.addObserver(presenter);
 
-        presenter.drawMap();
-
+        configureStage(primaryStage, viewRoot);
         primaryStage.show();
-
-        grassField.place(new Animal(3,3));
-        grassField.place(new Animal(4,4));
-
-        System.out.println(grassField);
     }
 
     private void configureStage(Stage primaryStage, BorderPane viewRoot) {

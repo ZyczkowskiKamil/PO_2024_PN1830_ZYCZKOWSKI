@@ -27,18 +27,23 @@ public class Simulation implements Runnable {
         }
     }
 
-    public void run() {
+    public synchronized void run() {
         if (animalsOnMap == 0) { // there are no animals to move
             return;
         }
 
         int nextAnimalID = 0;
         for (MoveDirection move : moves) {
-            Animal animal = animalsList.get(nextAnimalID);
-            worldMap.move(animal, move);
+            try {
+                Thread.sleep(500);
+                Animal animal = animalsList.get(nextAnimalID);
+                worldMap.move(animal, move);
 
-            nextAnimalID++;
-            if (nextAnimalID >= animalsOnMap) nextAnimalID = 0;
+                nextAnimalID++;
+                if (nextAnimalID >= animalsOnMap) nextAnimalID = 0;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
