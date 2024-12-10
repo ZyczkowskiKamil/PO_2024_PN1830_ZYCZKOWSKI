@@ -14,7 +14,7 @@ public class GrassField extends AbstractWorldMap implements WorldMap  {
     private Vector2d mapLowerLeft;
 
     public GrassField(int grassObjectsNumber) {
-
+        super();
         Random rand = new Random();
         int grassBoundX = (int) sqrt(grassObjectsNumber*10);
         int grassBoundY = (int) sqrt(grassObjectsNumber*10);

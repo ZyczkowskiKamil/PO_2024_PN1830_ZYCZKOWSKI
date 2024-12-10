@@ -1,6 +1,7 @@
 package agh.ics.oop.model;
 
 import java.util.Collection;
+import java.util.UUID;
 
 /**
  * The interface responsible for interacting with the map of the world.
@@ -45,4 +46,6 @@ public interface WorldMap extends MoveValidator {
     Collection<WorldElement> getElements();
 
     Boundary getCurrentBounds();
+
+    UUID getId();
 }
