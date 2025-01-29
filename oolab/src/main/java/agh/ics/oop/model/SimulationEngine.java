@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit;
 
 public class SimulationEngine {
 
-    ExecutorService executorService = null;
-    List<Simulation> simulations;
-    List<Thread> simulationThreads = new ArrayList<>();
+    private ExecutorService executorService = null;
+    private final List<Simulation> simulations;
+    private final List<Thread> simulationThreads = new ArrayList<>();
 
     public SimulationEngine(List<Simulation> simulations) {
         this.simulations = simulations;
@@ -24,7 +24,7 @@ public class SimulationEngine {
         }
     }
 
-    public void runAsync() throws InterruptedException {
+    public synchronized void runAsync() throws InterruptedException {
         for (Simulation simulation : simulations) {
             Thread simulationThread = new Thread(simulation);
             simulationThreads.add(simulationThread);
@@ -47,8 +47,11 @@ public class SimulationEngine {
         }
     }
 
-    public void runAsyncInThreadPool() throws InterruptedException {
-        executorService = Executors.newFixedThreadPool(4);
+    public synchronized void runAsyncInThreadPool(int numberOfThreads) throws InterruptedException {
+        if (numberOfThreads <= 0) {
+            throw new IllegalArgumentException("Number of threads must be greater than 0");
+        }
+        executorService = Executors.newFixedThreadPool(numberOfThreads);
 
         for (Simulation simulation : simulations) {
             executorService.submit(simulation);
